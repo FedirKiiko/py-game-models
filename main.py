@@ -5,11 +5,11 @@ from db.models import Race, Skill, Player, Guild
 
 
 def main() -> None:
-    with open("players.json", "r") as players:
-        players = json.load(players)
-    for player, data in players.items():
-        guild = None
-        if data["guild"]:
+    with open("players.json", "r") as f:
+        f = json.load(f)
+    for player, data in f.items():
+        guild = data.get("guild")
+        if guild:
             guild, _ = Guild.objects.get_or_create(
                 name=data["guild"]["name"],
                 defaults={"description": data["guild"]["description"]}
